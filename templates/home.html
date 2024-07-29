@@ -1,0 +1,82 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<div class="d-flex align-items-center" style="width: 90%; margin: auto" >
+  <div class="col-6">
+    <h3><b>Welcome to Car Zone</b></h3>
+    <p>
+      Car zone is a place where u can easily buy the car of your choice at
+      <br />
+      a very reasonable price
+    </p>
+  </div>
+
+  <div class="col-6">
+    <img src={% static "unnamed.jpg" %} style="width: 80%; " alt="pic">
+  </div>
+</div>
+
+<br /><br />
+
+<div class="d-flex gap-1" style="width: 90%; margin: auto">
+  {% for item in data %}
+
+    {% if item.Brand_name == 'BMW' %}
+      <a href="{% url 'brand_wise_car' item.slug %}" class="col-2 btn btn-warning">{{item.Brand_name}}</a>
+
+      {% elif item.Brand_name == 'Audi'  %}
+  
+
+      <a href="{% url 'brand_wise_car' item.slug %}" class="col-2 btn btn-primary">{{item.Brand_name}}</a>
+      {% elif item.Brand_name == 'TOYOTA' %}
+
+      <a href="{% url 'brand_wise_car' item.slug %}" class="col-2 btn btn-success">{{item.Brand_name}}</a>
+
+      {% elif item.Brand_name == 'Ferrari' %}
+
+      <a href="{% url 'brand_wise_car' item.slug %}" class="col-2 btn btn-info">{{item.Brand_name}}</a>
+
+
+      {% elif item.Brand_name == 'HONDA' %}
+
+      <a href="{% url 'brand_wise_car' item.slug %}" class="col-2 btn btn-warning">{{item.Brand_name}}</a>
+
+      {% elif item.Brand_name == 'Aston Martin' %}
+
+      <a href="{% url 'brand_wise_car' item.slug %}" class="col-2 btn btn-secondary">{{item.Brand_name}}</a>
+
+    {% endif %}
+    
+
+  {% endfor %}
+</div>
+<br /><br />
+<h4 class='m-5'><b>Total Cars : {{car_data|length}}</b></h4>
+<div class="d-flex flex-wrap gap-2" style="width: 90%; margin: auto">
+ 
+  {% for item in car_data %}
+
+  <div class="card col-3" style="width: 18rem">
+    <img src="{{item.image.url}}" class="card-img-top" style="width: 100%; height: 40%;" alt="..." />
+    <div class="card-body">
+      <h5 class="card-title">Title: {{item.Title}}</h5>
+      <p class="card-text">
+       Description: {{item.Description|truncatechars:50}}
+      </p>
+      <p class="card-text">
+        price: {{item.price}}
+      </p>
+      <p class="card-text">
+        Brand: {{item.Brand.Brand_name}}
+      </p>
+
+      <a href="{% url 'details_car' item.id %}" class="btn btn-primary">view Details</a>
+    </div>
+  </div>
+
+  <p></p>
+  {% endfor %}
+</div>
+
+
+
+{% endblock content %}
